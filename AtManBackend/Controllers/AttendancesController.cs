@@ -40,6 +40,11 @@ namespace AtManBackend.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] AttendanceDTO attendanceDTO)
         {
+            if (attendanceDTO.EndDate <= attendanceDTO.StartDate)
+            {
+                return BadRequest("End date must be greater than start date.");
+            }
+
             var attendance = new Attendance 
             {
                 Name = attendanceDTO.Name,

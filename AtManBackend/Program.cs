@@ -34,6 +34,19 @@ builder.Services.AddSwaggerGen(config =>
     config.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins(
+                "http://localhost:4200"
+                )
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 
@@ -46,6 +59,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapControllers();
 

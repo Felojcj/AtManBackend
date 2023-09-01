@@ -67,6 +67,11 @@ namespace AtManBackend.Controllers
                 return NotFound("The worker does not exists");
             }
 
+            if (attendanceDTO.EndDate <= attendanceDTO.StartDate)
+            {
+                return BadRequest("End date must be greater than start date.");
+            }
+
             attendance.Name = attendanceDTO.Name;
             attendance.StartDate = attendanceDTO.StartDate;
             attendance.EndDate = attendanceDTO.EndDate;
